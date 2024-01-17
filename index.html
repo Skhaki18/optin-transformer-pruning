@@ -184,7 +184,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <figure>
-      <img src="./static/img/ICLRTransformer_main.png" alt="Main Pruning Pipeline" style="width: 95%;"/>
+      <img src="./static/img/ICLRTransformer_main.png" alt="Main Pruning Pipeline"/>
     <figcaption style="text-align: center;">
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">OPTIN</span> is able to prune transformers in <em> <u>one-shot</u></em> across <em><u>multiple modalities</u></em>.
@@ -282,6 +282,36 @@
   </div>
 </section>
 
+<section class="section">
+
+  
+  <div class="container is-max-desktop">
+
+
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            OPTIN effectively quantifies parameter importance by analyzing the downstream (depth-wise) effect on the model. By leveraging a proxy distillation loss
+            on both the manifold and final logits, the OPTIN Framework provides a <em>gradient-free</em> method for estimating parameter importance through forward passes.
+            Finally, the mask search phase partitions the search space by adding parameters in descending importance (≥ polynomial-time). 
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+
+      <img src="./static/img/Algo.png" class="interpolation-image" alt="OPTIN Algorithm"/>
+        </div>
+        <br/>
+
+      </div>
+    </div>
+</section>
+
+
 
 <section class="section">
 
@@ -320,7 +350,7 @@
               compression ratios thus establishing a compelling argument for retraining-free pipelines.
               </p>
               <figure>
-                <img src="./static/img/LanugageNLPGraphs.png" alt="Natural Language Results" style="width: 95%;"/>
+                <img src="./static/img/LanugageNLPGraphs.png" alt="Natural Language Results"/>
             </figure>
           </div>
         </div>
@@ -336,7 +366,7 @@
 
               </p>
               <figure>
-                <img src="./static/img/imageNet_pruning_ratio.png" alt="Natural Language Results" style="width: 95%;"/>
+                <img src="./static/img/imageNet_pruning_ratio.png" alt="Image Classification Results"/>
             </figure>
             <!-- <p>
               Further, we demonstrate robustness to downstream transfer learning tasks and network architectures using CIFAR10 with DeiT-B and ViT-B
@@ -358,7 +388,7 @@
               the top left.
               </p>
               <figure>
-                <img src="./static/img/CityscapesICLR.png" alt="Semantic Segmentation" style="width: 95%;"/>
+                <img src="./static/img/CityscapesICLR.png" alt="Semantic Segmentation"/>
             </figure>
           </div>
         </div>
