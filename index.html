@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="The Need for Speed: Pruning Transformers with One Recipe">
+  <meta name="keywords" content="Model Compression, Pruning, Token Reduction, Efficient ML">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Need for Speed: Pruning Transformers with One Recipe</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.samirkhaki.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://datadistillation.github.io/DataDAM/">
+            DataDAM: Dataset Distillation
+          </a>
+          <a class="navbar-item" href="https://www.samirkhaki.com/CFDP/">
+            CFDP: CNN Pruning
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">The Need for Speed: Pruning Transformers with One Recipe</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://skhaki18.github.io"><b>Samir Khaki</b></a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.comm.utoronto.ca/~kostas/">Konstantinos N. Plataniotis</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Toronto</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"> <em>ICLR</em> 2024</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://openreview.net/pdf?id=MVmT6uQ3cQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video (Coming Soon)</span>
+                </a>
+              </span>
+
+              <!-- <span class="link-block">
+                <a href="./static/img/DataDAM-ICCV23-Poster.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-image"></i>
+                  </span>
+                  <span>Poster</span>
+                  </a>
+              </span> -->
+
+
+              <!-- <span class="link-block">
+                <a href="./static/img/DataDAM-ICCV23-Presentation-Slides.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-file-powerpoint"></i>
+                  </span>
+                  <span>Presentation</span>
+                  </a>
+              </span> -->
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Skhaki18/optin-transformer-pruning"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure>
+      <img src="./static/img/ICLRTransformer_main.png" alt="Main Pruning Pipeline" style="width: 95%;"/>
+    <figcaption style="text-align: center;">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">OPTIN</span> is able to prune transformer models in <em> <u>one-shot</u></em> accross <em><u>multiple modalities</u></em>.
+      </h2> 
+    </figcaption>
+  </figure>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          
+          <figure>
+            <img src="static/img/ImageNetteFullGrid_ipc10.jpg" alt="Image 1" style="max-width: 101.25%;">
+            <figcaption style="text-align: center;">ImageNette (128x128)</figcaption>
+          </figure>
+        </div>
+        <div class="item item-chair-tp">
+          <figure>
+            <img src="static/img/ImageSquackFullGrid_ipc10.jpg" alt="Image 1" style="max-width: 101.25%;">
+            <figcaption style="text-align: center;">ImageSquack (128x128)</figcaption>
+          </figure>
+        </div>
+        <div class="item item-shiba">
+          <figure>
+            <img src="static/img/ImageWoofFullGrid_ipc10.jpg" alt="Image 1" style="max-width: 101.25%;">
+            <figcaption style="text-align: center;">ImageWoof (128x128)</figcaption>
+          </figure>
+        </div>
+        <div class="item item-fullbody">
+          <figure>
+            <img src="static/img/VGG_16_Grid.jpg" alt="Image 1" style="max-width: 126.25%;">
+            <figcaption style="text-align: center;">CIFAR10 VGG16 IPC 50</figcaption>
+          </figure>
+        </div>
+        <div class="item item-blueshirt">
+          <figure>
+            <img src="static/img/AlexNetGrid.jpg" alt="Image 1" style="max-width: 126.25%;">
+            <figcaption style="text-align: center;">CIFAR10 AlexNet IPC 50</figcaption>
+          </figure>
+        </div>
+        <div class="item item-mask">
+          <figure>
+            <img src="static/img/FullNoiseGrid.jpg" alt="Image 1" style="max-width: 126.25%">
+            <figcaption style="text-align: center;">CIFAR10 Gaussian Noise Initialization</figcaption>
+          </figure>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            <p>We introduce the <strong>O</strong>ne-shot <strong>P</strong>runing <strong>T</strong>echnique for <strong>I</strong>nterchangeable <strong>N</strong>etworks (<strong>OPTIN</strong>) 
+              framework as a tool to increase the efficiency of pre-trained transformer architectures, across many domains, without requiring re-training. Recent works have explored improving transformer 
+              efficiency, however often incur computationally expensive re-training procedures or depend on architecture-specific characteristics, thus impeding practical wide-scale adoption across multiple
+               modalities. To address these shortcomings, the OPTIN framework leverages intermediate feature distillation, capturing the long-range dependencies of model parameters (coined <em>trajectory</em>),
+                to produce state-of-the-art results on natural language, image classification, transfer learning, and semantic segmentation tasks. Our motivation stems from the need for a generalizable model 
+                compression framework that scales well across different transformer architectures and applications. Given a FLOP constraint, the OPTIN framework will compress the network while maintaining competitive 
+                accuracy performance and improved throughput. Particularly, we show a ≤ 2% accuracy degradation from NLP baselines and a 0.5% improvement from state-of-the-art methods on image classification at competitive
+                 FLOPs reductions. We further demonstrate the generalization of tasks and architecture with comparative performance on Mask2Former for semantic segmentation and cnn-style networks. OPTIN presents one 
+                 of the first one-shot efficient frameworks for compressing transformer architectures that generalizes well across <em>multiple</em> class domains, in particular: natural language and image-related tasks,
+                  <em>without re-training</em>.</p>
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video (Posting Soon)</h2>
+        <div class="publication-video">
+          <iframe src=""
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+
+  
+  <div class="container is-max-desktop">
+
+
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We introduce implementation and evaluation details to ensure reproducibility and benchmark our method with state of art in natural language and image classification to illustrate the potential of our one-shot framework. 
+            In particular, the majority of our experiments explore using the <strong>OPTIN</strong> Framework to improve <em>off-the-shelf </em> models without re-training.
+            We further investigate the applications in transfer learning, alternate architectures, and downstream tasks to show the generalizability of our method across tasks and architectures.
+
+            <!-- The OPTIN Framework is tested against a variety of network architectures and datasets to ensure generalizability over both the task and model domains. 
+            For Natural Language Processing, OPTIN is evaluated on the GLUE Benchmark \cite{wang2018glue} using the $\text{BERT}_{BASE}$ \cite{devlin2019bert} architecture. 
+            For Image Classification, both ImageNet1-K \cite{deng2009imagenet} and CIFAR10 \cite{Krizhevsky09} were used with the DeiT-Ti/S/B \cite{touvron2021training}, ViT-B \cite{dosovitskiy2021image}, 
+            and a VGGNet \cite{simonyan2014very} architecture to demonstrate the OPTIN Framework's robustness on model type/size, image datasets, and transfer learning. 
+            For Semantic Segmentation, the Cityscapes Dataset \cite{Cordts_2016_CVPR} was used with the Mask2Former \cite{cheng2021mask2former} with a Swin-Ti backbone \cite{liu2021swin} 
+            to show how the OPTIN Framework could be used to maintain competitive performance and throughput at constrained FLOPs. Further details on dataset selection are in Appendix \ref{appendix:selectingadataset} -->
+          </p>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-4">Natural Language Processing</h2>
+            <p>
+              For Natural Language Processing, OPTIN is evaluated on the GLUE Benchmark using the <em>BERT-Base</em> architecture. 
+              Despite the added re-training phase in other methods, the OPTIN Framework is able to retain competitive test performance over a variety of 
+              compression ratios thus establishing a compelling argument for retraining-free pipelines.
+              </p>
+              <figure>
+                <img src="./static/img/LanugageNLPGraphs.png" alt="Natural Language Results" style="width: 95%;"/>
+            </figure>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-4">Image Classification</h2>
+            <p>
+              For Image Classification, ImageNet-1K is used to benchmark DeiT-Ti/S architectures, demonstrating the OPTIN Framework's robustness to multiple modalities.
+              To further benchmark our performance in perspective of a wider FLOPs spectrum and more model compression methods, we introduce the below figure which benchmarks
+              against some of the most recent model compression techniques for transformers; some of which retain re-training or training-adjacent artifacts. 
+              Despite our lack of re-training, the OPTIN framework produces competitive results over various flop ratios.
+
+              </p>
+              <figure>
+                <img src="./static/img/imageNet_pruning_ratio.png" alt="Natural Language Results" style="width: 95%;"/>
+            </figure>
+            <!-- <p>
+              Further, we demonstrate robustness to downstream transfer learning tasks and network architectures using CIFAR10 with DeiT-B and ViT-B
+              </p>
+              <figure>
+                <img src="./static/img/LanugageNLPGraphs.png" alt="Natural Language Results" style="width: 95%;"/>
+            </figure> -->
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-4">Semantic Segmentation</h2>
+            <p>
+              To demonstrate the OPTIN framework's generalizability to complex architectures and downstream tasks, we apply model compression to the Mask2Former Architecture 
+              with the Swin-Tiny backbone on the Cityscapes dataset.
+              Qualitatively we can see a strong resemblance between the original and compressed network, with a small discrepancy in predictions towards the bottom right 
+              of the frame in an already difficult-to-segment region (as evidenced by the unclear segmentation in the original prediction) and on the traffic sign towards 
+              the top left.
+              </p>
+              <figure>
+                <img src="./static/img/CityscapesICLR.png" alt="Semantic Segmentation" style="width: 95%;"/>
+            </figure>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX (Updated Version Coming Soon)</h2>
+    <pre><code>
+      @InProceedings{Khaki_2024_ICLR,
+      author    = {Khaki, Samir and Plataniotis, Konstantinos N.},
+      title     = {The Need for Speed: Pruning Transformers with One Recipe},
+      booktitle = {Proceedings of the Twelfth International Conference on Learning Representations},
+      year      = {2024},
+      url       = {https://openreview.net/forum?id=MVmT6uQ3cQ}
+    }
+  </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2310.00093">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/DataDistillation/DataDAM" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
