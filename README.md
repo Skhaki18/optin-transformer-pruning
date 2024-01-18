@@ -1,4 +1,4 @@
-# The Need for Speed: Pruning Transformers with One Recipe [[Project Page]](http://www.samirkhaki.com/optin-transformer-pruning/) [[OpenReview]](https://openreview.net/forum?id=MVmT6uQ3cQ)
+# ICLR 2024 The Need for Speed: Pruning Transformers with One Recipe [[Project Page]](http://www.samirkhaki.com/optin-transformer-pruning/) [[OpenReview]](https://openreview.net/forum?id=MVmT6uQ3cQ)
 
 ## News
 
