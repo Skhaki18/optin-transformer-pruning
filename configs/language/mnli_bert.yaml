@@ -1,0 +1,35 @@
+# Base Level
+task_name: "language"
+dataset: "mnli"
+batch_size: 128
+model_name: "bert-base-uncased"
+loss_type: "MMD+KL"
+
+# Specs
+lambda_contribution: 10
+mac_constraint: 0.6
+fine_tune: False
+seed: 0
+logging: False
+timer_batch_size: 32
+
+
+embedding_choice: 'layernorm_before' # Expected
+temp: 4
+aggregate: 'sum'
+
+head_include_fin_layer_mmd: True
+head_fin_decay_bool: True
+head_fin_decay_val: 0.5
+
+
+neuron_include_fin_layer_mmd: True
+neuron_fin_decay_bool: True
+neuron_fin_decay_val: 0.5
+
+
+head_metric_decay: 0.5
+
+neuron_metric_decay: 1
+
+distill_token: False
